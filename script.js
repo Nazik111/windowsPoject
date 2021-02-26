@@ -18038,6 +18038,18 @@ var forms = function forms(state) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var images = function images() {
+  function calcScroll() {
+    var div = document.createElement('div');
+    div.style.width = '50px';
+    div.style.height = '50px';
+    div.style.overflowY = 'scroll';
+    div.style.visibility = 'hidden';
+    document.body.appendChild(div);
+    var scrollWidth = div.offsetWidth - div.clientWidth;
+    div.remove();
+    return scrollWidth;
+  }
+
   var imgPopup = document.createElement('div'),
       workSection = document.querySelector('.works'),
       bigImage = document.createElement('img');
@@ -18055,10 +18067,17 @@ var images = function images() {
       imgPopup.style.display = 'flex';
       var path = target.parentNode.getAttribute('href');
       bigImage.setAttribute('src', path);
+      bigImage.classList.add('faded');
+      bigImage.style.width = 'auto';
+      bigImage.style.height = '70vh';
+      document.body.style.marginRight = "".concat(calcScroll(), "px");
+      document.body.style.overflow = 'hidden';
     }
 
     if (target && target.matches('div.popup')) {
       imgPopup.style.display = 'none';
+      document.body.style.overflow = '';
+      document.body.style.marginRight = "0px";
     }
   });
 };
